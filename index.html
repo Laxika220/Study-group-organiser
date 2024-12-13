@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Group Organizer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .votes {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Study Group Organizer</h1>
+    <div class="container">
+        <div class="form-group">
+            <label for="time">Proposed Time:</label>
+            <input type="text" id="time" placeholder="e.g., 5 PM">
+        </div>
+        <div class="form-group">
+            <label for="venue">Proposed Venue:</label>
+            <input type="text" id="venue" placeholder="e.g., Library Room 2">
+        </div>
+        <button id="proposeButton">Propose Time and Venue</button>
+
+        <div id="proposedDetails" class="votes" style="display: none;">
+            <h3>Proposed Time and Venue:</h3>
+            <p id="details"></p>
+            <button id="voteYes">Yes, I agree!</button>
+            <button id="voteNo">No, I can’t make it</button>
+            <p id="voteCount"></p>
+        </div>
+    </div>
+
+    <script>
+        const proposeButton = document.getElementById('proposeButton');
+        const timeInput = document.getElementById('time');
+        const venueInput = document.getElementById('venue');
+        const proposedDetails = document.getElementById('proposedDetails');
+        const details = document.getElementById('details');
+        const voteYesButton = document.getElementById('voteYes');
+        const voteNoButton = document.getElementById('voteNo');
+        const voteCount = document.getElementById('voteCount');
+
+        let yesVotes = 0;
+        let noVotes = 0;
+
+        proposeButton.addEventListener('click', () => {
+            const time = timeInput.value.trim();
+            const venue = venueInput.value.trim();
+
+            if (time && venue) {
+                details.textContent = `Time: ${time}, Venue: ${venue}`;
+                proposedDetails.style.display = 'block';
+                timeInput.value = '';
+                venueInput.value = '';
+            } else {
+                alert('Please fill in both time and venue!');
+            }
+        });
+
+        voteYesButton.addEventListener('click', () => {
+            yesVotes++;
+            updateVotes();
+        });
+
+        voteNoButton.addEventListener('click', () => {
+            noVotes++;
+            updateVotes();
+        });
+
+        function updateVotes() {
+            voteCount.textContent = `Yes: ${yesVotes}, No: ${noVotes}`;
+        }
+    </script>
+</body>
+</html>
